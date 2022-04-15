@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Symfony - Start project
 ======
 
@@ -61,3 +62,6 @@ To re-enable the xdebug:
 ```bash
 bin/xdebug disable
 ```
+=======
+# web2
+>>>>>>> 332b832da47b3086eb2fb87a239409e1ea6448f0
