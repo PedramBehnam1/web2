@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Attraction{% endblock %}
+
+{% block body %}
+    <h1>Create new Attraction</h1>
+
+    {{ include('attraction/_form.html.twig') }}
+
+    <a href="{{ path('app_attraction_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+        
+         {% block header %}
+          <h1 class="container text-primary"  style="padding:0 32%">HomePage</h1>
+
+         {% endblock %}
+        
+        
+         {% block article %}
+            {% block section %}
+            <h5 class="container text-info">
+            <label >name of company:</label> 
+            <span>اصفهان تور</span></br>
+            <label >target:</label>
+            <span>The main goal of this company is it that create great tourist tours،domestic and foreign tours. This company want say by make tours about Ancient history of Iran , another country and for customers satisfaction he sometimes organizes tours that has The nature of beauty and creats very amazing game. </span></br>
+            <label class="mt-3">city:</label>
+            <span>Isfahan</span>
+            </h5>
+            {% endblock %}
+         {% endblock %}
+
+         {% block footer %}
+            <a class="container" style="padding:0 32%" href="http://localhost/index.php/about">About</a>
+         {% endblock %}
+
+        {% endblock %}
+    </body>
+</html>

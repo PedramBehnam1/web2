@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Attraction index{% endblock %}
+
+{% block body %}
+    <h1>Attraction index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>ShortDescription</th>
+                <th>FullDescription</th>
+                <th>Score</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for attraction in attractions %}
+            <tr>
+                <td>{{ attraction.id }}</td>
+                <td>{{ attraction.name }}</td>
+                <td>{{ attraction.shortDescription }}</td>
+                <td>{{ attraction.fullDescription }}</td>
+                <td>{{ attraction.score }}</td>
+                <td>{{ attraction.createdAt ? attraction.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ attraction.updatedAt ? attraction.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_attraction_show', {'id': attraction.id}) }}">show</a>
+                    <a href="{{ path('app_attraction_edit', {'id': attraction.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_attraction_new') }}">Create new</a>
+{% endblock %}

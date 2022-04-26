@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Attraction{% endblock %}
+
+{% block body %}
+    <h1>Attraction</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ attraction.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ attraction.name }}</td>
+            </tr>
+            <tr>
+                <th>ShortDescription</th>
+                <td>{{ attraction.shortDescription }}</td>
+            </tr>
+            <tr>
+                <th>FullDescription</th>
+                <td>{{ attraction.fullDescription }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>{{ attraction.score }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ attraction.createdAt ? attraction.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ attraction.updatedAt ? attraction.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_attraction_index') }}">back to list</a>
+
+    <a href="{{ path('app_attraction_edit', {'id': attraction.id}) }}">edit</a>
+
+    {{ include('attraction/_delete_form.html.twig') }}
+{% endblock %}
