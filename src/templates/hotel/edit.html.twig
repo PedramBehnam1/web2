@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Hotel{% endblock %}
+
+{% block stylesheets %}
+    {{encore_entry_link_tags('hotel')}} 
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('hotel') }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Hotel</h1>
+
+    {{ include('hotel/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-primary" href="{{ path('app_hotel_index') }}">back to list</a>
+
+    {{ include('hotel/_delete_form.html.twig') }}
+{% endblock %}

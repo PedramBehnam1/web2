@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room{% endblock %}
+
+{% block stylesheets %}
+    {{encore_entry_link_tags('room')}} 
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('room') }}
+{% endblock %}
+
+{% block body %}
+    <h1>Room</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ room.id }}</td>
+            </tr>
+
+             <tr>
+                <th>Hotel</th>
+                <td>{{ room.hotel.name }}</td>
+            </tr>
+            
+            <tr>
+                <th>RoomNumber</th>
+                <td>{{ room.roomNumber }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfBeds</th>
+                <td>{{ room.numberOfBeds }}</td>
+            </tr>
+            <tr>
+                <th>Situation</th>
+                <td>{{ room.situation }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_room_index') }}">back to list</a>
+
+    <a class="btn btn-warning" href="{{ path('app_room_edit', {'id': room.id}) }}">edit</a>
+
+    {{ include('room/_delete_form.html.twig') }}
+{% endblock %}

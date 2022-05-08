@@ -11,6 +11,12 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 # install git
 RUN apt-get -y update && apt-get -y install git
 
+#install node
+RUN apt-get -y update && apt-get -y install nodejs npm
+
+#install yarn
+RUN apt-get -y update && apt-get -y install yarn
+
 # install mysql driver
 RUN docker-php-ext-install pdo_mysql
 

@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{encore_entry_link_tags('attraction')}} 
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('attraction') }}
+{% endblock %}
+
 {% block title %}Attraction index{% endblock %}
 
 {% block body %}
@@ -29,8 +39,8 @@
                 <td>{{ attraction.createdAt ? attraction.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ attraction.updatedAt ? attraction.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_attraction_show', {'id': attraction.id}) }}">show</a>
-                    <a href="{{ path('app_attraction_edit', {'id': attraction.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_attraction_show', {'id': attraction.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_attraction_edit', {'id': attraction.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +51,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_attraction_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_attraction_new') }}">Create new</a>
 {% endblock %}

@@ -2,10 +2,20 @@
 
 {% block title %}New Attraction{% endblock %}
 
+{% block stylesheets %}
+    {{encore_entry_link_tags('attraction')}} 
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('attraction') }}
+{% endblock %}
+
 {% block body %}
     <h1>Create new Attraction</h1>
 
     {{ include('attraction/_form.html.twig') }}
 
-    <a href="{{ path('app_attraction_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_attraction_index') }}">back to list</a>
 {% endblock %}

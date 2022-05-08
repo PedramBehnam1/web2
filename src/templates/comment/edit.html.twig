@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block stylesheets %}
+    {{encore_entry_link_tags('comment')}} 
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('comment') }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Comment</h1>
+
+    {{ include('comment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-primary" class="btn btn-primary" href="{{ path('app_comment_index') }}">back to list</a>
+
+    {{ include('comment/_delete_form.html.twig') }}
+{% endblock %}

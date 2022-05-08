@@ -23,6 +23,7 @@
         "symfony/security-csrf": "6.0.*",
         "symfony/twig-bundle": "6.0.*",
         "symfony/validator": "6.0.*",
+        "symfony/webpack-encore-bundle": "^1.14",
         "symfony/yaml": "6.0.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
@@ -71,6 +72,7 @@
     },
     "conflict": {
         "symfony/symfony": "*"
+        
     },
     "extra": {
         "symfony": {

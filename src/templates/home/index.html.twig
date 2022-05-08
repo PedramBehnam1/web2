@@ -6,21 +6,29 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            {{encore_entry_link_tags('home')}}
+            {{ encore_entry_link_tags('app') }} 
+        
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('home') }}
+
         {% endblock %}
     </head>
     <body>
         {% block body %}
         
-         {% block header %}
+         
+         <header style="background-color: #fff">
           <h1 class="container text-primary"  style="padding:0 32%">HomePage</h1>
+         </header>  
 
-         {% endblock %}
+         <div class="img container me-5">
+            <img src="{{asset("build/images/masoleh.jpg")}}">
+         </div> 
+         
         
         
          {% block article %}
@@ -36,10 +44,16 @@
             {% endblock %}
          {% endblock %}
 
-         {% block footer %}
-            <a class="container" style="padding:0 32%" href="http://localhost/index.php/about">About</a>
-         {% endblock %}
+         <footer> 
+            <div class="d-flex flex-row container " >
+                <a style="padding:0 10% 0 41%" href="http://localhost/index.php/about">About</a>
+                <a href="http://localhost/index.php/contact/us">Contact Us</a>
+            </div >
+         </footer>
 
         {% endblock %}
     </body>
+
+    
+
 </html>
