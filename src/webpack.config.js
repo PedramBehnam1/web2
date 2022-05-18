@@ -65,8 +65,7 @@ Encore
     // enables Sass/SCSS support
     //.enableSassLoader()
 
-    // enables post css loader - kar post css tamiz kardan code haye css bad builde
-    // oon code haye ke bedard nemikore ro miad hazf mikone - ok
+    //postcss cleans un usefule code of css
     .enablePostCssLoader()
 
     // uncomment if you use TypeScript
