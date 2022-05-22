@@ -9,7 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 #[Route('/attraction')]
 class AttractionController extends AbstractController
 {
@@ -78,6 +79,8 @@ class AttractionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_attraction_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    #[Security("is_granted('ROLE_USER')")]
     public function delete(Request $request, Attraction $attraction, AttractionRepository $attractionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$attraction->getId(), $request->request->get('_token'))) {

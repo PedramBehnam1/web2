@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 #[Route('/room')]
 class RoomController extends AbstractController
@@ -73,6 +75,8 @@ class RoomController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_room_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    #[Security("is_granted('ROLE_USER')")]
     public function delete(Request $request, Room $room, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {

@@ -28,6 +28,7 @@ Encore
     .addEntry('comment','./assets/comment.js')
     .addEntry('hotel','./assets/hotel.js')
     .addEntry('room','./assets/room.js')
+    .addEntry('login','./assets/login.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   //  .enableStimulusBridge('./assets/controllers.json') // ino felan niaz nadrin okey asan in chie - in baraye ux - ok 
