@@ -13,8 +13,17 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Room index</h1>
-
+    
+    <header class="container-fluid">
+        <div class="row">
+            <div class="col-10">
+               <h1>Room index</h1>
+            </div>
+            <div class=" logo col-2 " dir="rtl">
+                {{ knp_menu_render('main') }}
+            </div>
+        </div>
+    </header>
     <table class="table">
         <thead>
             <tr>
@@ -37,7 +46,10 @@
                 <td>{{ room.hotel.name }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ path('app_room_show', {'id': room.id}) }}">show</a>
-                    <a class="btn btn-warning" href="{{ path('app_room_edit', {'id': room.id}) }}">edit</a>
+
+                    {% if is_granted('ROLE_USER') %}
+                        <a class="btn btn-warning" href="{{ path('app_room_edit', {'id': room.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -47,6 +59,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a class="btn btn-primary"  href="{{ path('app_room_new') }}">Create new</a>
+    {% if is_granted('ROLE_USER') %}
+        <a class="btn btn-primary"  href="{{ path('app_room_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

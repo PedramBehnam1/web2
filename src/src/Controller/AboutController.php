@@ -7,17 +7,13 @@ use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+#[Route('/about')]
 class AboutController extends AbstractController
 {
 
 
-   /**
-    * 
-    * @Route("/about", methods={"GET"})
-    *
-    * @return Response
-    * @throws \Exception
-    */
+  #[Route('/', name: 'about_index', methods: ['GET'])] 
     public function index(): Response
     {
       return $this->render('/about/index.html.twig');

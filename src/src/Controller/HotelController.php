@@ -6,11 +6,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Hotel;
 use App\Form\HotelType;
 use App\Repository\HotelRepository;
+use App\Services\SearchHotel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 #[Route('/hotel')]
 class HotelController extends AbstractController
 {
@@ -48,7 +51,7 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_hotel_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_hotel_show', methods: ['GET'] , requirements: ['id' => '\d+'])]
     public function show(Hotel $hotel): Response
     {
         return $this->render('hotel/show.html.twig', [
@@ -74,7 +77,9 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_hotel_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_hotel_delete', methods: ['POST'] , requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_USER')]
+    #[Security("is_granted('ROLE_USER')")]
     public function delete(Request $request, Hotel $hotel, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$hotel->getId(), $request->request->get('_token'))) {
@@ -83,5 +88,19 @@ class HotelController extends AbstractController
         }
 
         return $this->redirectToRoute('app_hotel_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/search', name: 'app_hotel_search', methods: ['GET'])]
+    //#[ParamConverter('GET', class: 'SearchHotel:GET')]
+    public function search(Request $request, SearchHotel $hotelSearch): Response
+    {
+        $q = $request->query->get('q');//in chie - in miad query to url ro migire - yani search moon - http://localhost/index.php/hotel/search?query=Azadi 
+        $hotels = $hotelSearch->search($q);//khob vase search ech chi ezaf konam to file twig am - to safe home ye form besaz bara search - badesh test kon - nabayad to safheh ye hotel dorost konam - harja dost dashti fargh nemikone
+        
+
+        return $this->render('hotel/search.html.twig', [ // ye template besaz 
+            'query' => $q,
+            'hotels' => $hotels,
+        ]);
     }
 }
