@@ -28,8 +28,8 @@ class AttractionController extends AbstractController
         $attraction = new Attraction();
         $form = $this->createForm(AttractionType::class, $attraction);
         $form->handleRequest($request);
-        $createdAt = new \DateTimeImmutable('now');
-        $attraction->setCreatedAt($createdAt);
+        // $createdAt = new \DateTimeImmutable('now');
+        // $attraction->setCreatedAt($createdAt);
         // $score = $attraction->getScore();
         // if ($score < 1 || $score > 10) {
         //     $attraction->setScore(0);
@@ -46,7 +46,7 @@ class AttractionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_attraction_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_attraction_show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(Attraction $attraction): Response
     {
         return $this->render('attraction/show.html.twig', [
@@ -59,8 +59,8 @@ class AttractionController extends AbstractController
     {
         $form = $this->createForm(AttractionType::class, $attraction);
         $form->handleRequest($request);
-        $updatedAt = new \DateTimeImmutable('now');
-        $attraction->setUpdatedAt($updatedAt);
+        // $updatedAt = new \DateTimeImmutable('now');
+        // $attraction->setUpdatedAt($updatedAt);
 
         // $score = $attraction->getScore();
         // if ($score < 1 || $score > 10) {
@@ -78,7 +78,7 @@ class AttractionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_attraction_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_attraction_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
     #[Security("is_granted('ROLE_USER')")]
     public function delete(Request $request, Attraction $attraction, AttractionRepository $attractionRepository): Response

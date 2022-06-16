@@ -33,8 +33,8 @@ class CommentController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        $createdAt = new \DateTimeImmutable('now');
-        $comment->setCreateAt($createdAt);
+        // $createdAt = new \DateTimeImmutable('now');
+        // $comment->setCreateAt($createdAt);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($comment);

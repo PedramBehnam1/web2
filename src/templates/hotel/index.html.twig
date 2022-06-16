@@ -21,16 +21,19 @@
             <div class=" logo col-4  " >
                 <img  src="{{asset("build/images/ghasr-talaee-mashhad.jpg")}} " style="width:80%; height:80%">
             </div>
-            <div class=" logo col-4 " dir="rtl">
-            <div class="m-5">
-                <div class="input-group m-5">
-                    <form class="form-inline" method="get" action="{{ path('app_hotel_search') }}">
-                        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search..." aria-label="Search">
-                    </form>
-                    <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+            <div class=" logo col-4 " >
+                <div class="m-5">
+                    <div class="input-group m-5">
+                        <form class="form-inline" method="get" action="{{ path('app_hotel_search') }}">
+                            <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search..." aria-label="Search">
+                            <input class="btn btn-success my-2 my-sm-0" value="Search" type="submit">
+                        </form>
+                        
+                    </div>
                 </div>
-            </div>
-               {{ knp_menu_render('main') }}
+                <div dir="rtl">
+                {{ knp_menu_render('main') }}
+                </div>
             </div>
         </div>
     </header>
@@ -56,7 +59,7 @@
                 <td>{{ hotel.phoneNumber }}</td>
                 <td>{{ hotel.email }}</td>
                 <td>{{ hotel.score }}</td>
-                <td>{{ hotel.createAt ? hotel.createAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ hotel.createdAt ? hotel.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ path('app_hotel_show', {'id': hotel.id}) }}">show</a>
                     {% if is_granted('ROLE_USER') %}

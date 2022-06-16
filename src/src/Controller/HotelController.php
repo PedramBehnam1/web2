@@ -35,8 +35,8 @@ class HotelController extends AbstractController
         $hotel = new Hotel();
         $form = $this->createForm(HotelType::class, $hotel);
         $form->handleRequest($request);
-        $createdAt = new \DateTimeImmutable('now');
-        $hotel->setCreateAt($createdAt);
+        // $createdAt = new \DateTimeImmutable('now');
+        // $hotel->setCreateAt($createdAt);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($hotel);
@@ -94,11 +94,11 @@ class HotelController extends AbstractController
     //#[ParamConverter('GET', class: 'SearchHotel:GET')]
     public function search(Request $request, SearchHotel $hotelSearch): Response
     {
-        $q = $request->query->get('q');//in chie - in miad query to url ro migire - yani search moon - http://localhost/index.php/hotel/search?query=Azadi 
+        $q = $request->query->get('q');// in miad query to url ro migire - yani search moon - http://localhost/index.php/hotel/search?query=Azadi 
         $hotels = $hotelSearch->search($q);//khob vase search ech chi ezaf konam to file twig am - to safe home ye form besaz bara search - badesh test kon - nabayad to safheh ye hotel dorost konam - harja dost dashti fargh nemikone
         
 
-        return $this->render('hotel/search.html.twig', [ // ye template besaz 
+        return $this->render('hotel/search.html.twig', [ 
             'query' => $q,
             'hotels' => $hotels,
         ]);

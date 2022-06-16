@@ -2,12 +2,19 @@
 
 namespace App\Entity;
 
+use App\Model\TimableTrait;
+use App\Model\TimeInterface;
+use App\Model\UserInterface;
+use App\Model\UserTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+class Comment implements TimeInterface , UserInterface
 {
+    use TimableTrait;
+    use UserTrait;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -26,8 +33,7 @@ class Comment
     ])]
     private $score;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $createAt;
+    
 
     public function getId(): ?int
     {
@@ -70,15 +76,4 @@ class Comment
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
-    {
-        return $this->createAt;
-    }
-
-    public function setCreateAt(\DateTimeImmutable $createAt): self
-    {
-        $this->createAt = $createAt;
-
-        return $this;
-    }
 }

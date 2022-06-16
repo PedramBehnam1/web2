@@ -2,15 +2,27 @@
 
 namespace App\Entity;
 
+use App\Model\TimableTrait;
+use App\Model\TimeInterface;
+use App\Model\TimeTrait;
+use App\Model\UserInterface;
+use App\Model\UserTrait;
 use App\Repository\HotelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
-class Hotel
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
+class Hotel implements TimeInterface , UserInterface
 {
+    use TimableTrait;
+    use UserTrait;
+    use SoftDeleteableEntity; 
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -37,8 +49,7 @@ class Hotel
     ])]
     private $score;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $createAt;
+    
 
     #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Room::class, orphanRemoval: true)]
     private $rooms;
@@ -113,17 +124,7 @@ class Hotel
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
-    {
-        return $this->createAt;
-    }
-
-    public function setCreateAt(\DateTimeImmutable $createAt): self
-    {
-        $this->createAt = $createAt;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Room>
