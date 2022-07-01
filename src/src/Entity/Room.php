@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Interface\TimeInterface;
+use App\Interface\UserInterface;
 use App\Model\TimableTrait;
-use App\Model\TimeInterface;
-use App\Model\UserInterface;
 use App\Model\UserTrait;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;

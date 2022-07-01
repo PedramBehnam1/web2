@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Model\TimableTrait;
-use App\Model\TimeInterface;
-use App\Model\UserInterface;
+use App\Interface\TimeInterface;
+use App\Interface\UserInterface;
 use App\Model\UserTrait;
 use App\Repository\AttractionRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\DiscriminatorColumn(name:"type", type:"string")]
 #[ORM\DiscriminatorMap(["attraction" => "Attraction", "location" => "Location", "event" => "Event"])]
 
-class Attraction implements TimeInterface , UserInterface
+class Attraction implements  TimeInterface , UserInterface
 {
 
     use TimableTrait;   
@@ -44,7 +44,13 @@ class Attraction implements TimeInterface , UserInterface
     ])]
     protected $score ;
 
-    
+    public function __construct($name , $shortDescription , $fullDescription , $score)
+    {
+        $this->name = $name;
+        $this->shortDescription = $shortDescription;
+        $this->fullDescription = $fullDescription;
+        $this->score = $score;
+    }
 
     public function getId(): ?int 
     {

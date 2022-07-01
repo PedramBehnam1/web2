@@ -20,6 +20,12 @@ RUN apt-get -y update && apt-get -y install yarn
 # install mysql driver
 RUN docker-php-ext-install pdo_mysql
 
+# install intl requirements
+RUN apt-get -y update && apt-get install -y libicu-dev
+
+# install intl
+RUN docker-php-ext-install intl
+
 # install xdebug
 # https://hub.docker.com/_/php
 RUN pecl install xdebug && docker-php-ext-enable xdebug
@@ -30,3 +36,4 @@ COPY docker/php/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+

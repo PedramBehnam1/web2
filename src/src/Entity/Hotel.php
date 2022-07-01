@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
+use App\Interface\TimeInterface;
+use App\Interface\UserInterface;
 use App\Model\TimableTrait;
-use App\Model\TimeInterface;
 use App\Model\TimeTrait;
-use App\Model\UserInterface;
 use App\Model\UserTrait;
 use App\Repository\HotelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
