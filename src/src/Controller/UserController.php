@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
+    #[Route('/user/{_locale}', name: 'app_user', defaults:['_locale'=>'en'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $users = $entityManager

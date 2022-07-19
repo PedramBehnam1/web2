@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 #[Route('/room')]
 class RoomController extends AbstractController
 {
-    #[Route('/', name: 'app_room_index', methods: ['GET'])]
+    #[Route('/{_locale}', name: 'app_room_index', methods: ['GET'], defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $rooms = $entityManager

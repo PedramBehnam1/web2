@@ -13,7 +13,7 @@ class HomeController extends AbstractController
 {
 
 
-   #[Route('/', name: 'home_index', methods: ['GET'])]
+   #[Route('/{_locale}', name: 'home_index', methods: ['GET'], defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(): Response
     {
        return $this->render('/home/index.html.twig');

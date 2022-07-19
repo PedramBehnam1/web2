@@ -13,7 +13,7 @@ class AboutController extends AbstractController
 {
 
 
-  #[Route('/', name: 'about_index', methods: ['GET'])] 
+  #[Route('/{_locale}', name: 'about_index', methods: ['GET'] , defaults:['_locale'=>'en'])] 
     public function index(): Response
     {
       return $this->render('/about/index.html.twig');

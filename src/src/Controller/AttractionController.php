@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 #[Route('/attraction')]
 class AttractionController extends AbstractController
 {
-    #[Route('/', name: 'app_attraction_index', methods: ['GET'])]
+    #[Route('/{_locale}', name: 'app_attraction_index', methods: ['GET'] , defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(AttractionRepository $attractionRepository): Response
     {
         return $this->render('attraction/index.html.twig', [

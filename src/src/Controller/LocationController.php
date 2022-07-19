@@ -30,7 +30,7 @@ class LocationController extends AbstractController
         $this->tokenStorage = $storage;
     }
 
-    #[Route('/', name: 'app_location_index', methods: ['GET'])]
+    #[Route('/{_locale}', name: 'app_location_index', methods: ['GET'], defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $locations = $entityManager

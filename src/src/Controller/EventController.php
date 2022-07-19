@@ -30,7 +30,7 @@ class EventController extends AbstractController
         $this->tokenStorage = $storage;
     }
 
-    #[Route('/', name: 'app_event_index', methods: ['GET'])]
+    #[Route('/{_locale}', name: 'app_event_index', methods: ['GET'] , defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $events = $entityManager

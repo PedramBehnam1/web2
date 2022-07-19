@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Interface\UserInterface as InterfaceUserInterface;
 use App\Model\UserInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
@@ -38,7 +39,7 @@ class UserSubscriber implements EventSubscriber
  {
   $entity = $args->getObject();
 
-  if ($entity instanceof UserInterface) {
+  if ($entity instanceof InterfaceUserInterface) {
    $token = $this->tokenStorage->getToken();
    if ($token instanceof TokenInterface) {
     /** @var User $user */
@@ -55,7 +56,7 @@ class UserSubscriber implements EventSubscriber
  {
   $entity = $args->getObject();
 
-  if ($entity instanceof UserInterface) {
+  if ($entity instanceof InterfaceUserInterface) {
    $token = $this->tokenStorage->getToken();
    if ($token instanceof TokenInterface) {
     /** @var User $user */

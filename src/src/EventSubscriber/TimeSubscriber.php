@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Interface\TimeInterface as InterfaceTimeInterface;
 use App\Model\TimeInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
@@ -21,7 +22,7 @@ class TimeSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof TimeInterface) {
+        if ($entity instanceof InterfaceTimeInterface) {
             $entity->setCreatedAt(new \DateTimeImmutable());
             $entity->setupdatedAt(new \DateTimeImmutable());
         }
@@ -31,7 +32,7 @@ class TimeSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof TimeInterface) {
+        if ($entity instanceof InterfaceTimeInterface) {
             $entity->setupdatedAt(new \DateTimeImmutable());
         }
     }

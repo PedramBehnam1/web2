@@ -10,14 +10,14 @@
     {{ encore_entry_script_tags('attraction') }}
 {% endblock %}
 
-{% block title %}Attraction index{% endblock %}
+{% block title %} Attraction index {% endblock %}
 
 {% block body %}
     
      <header class="container-fluid">
         <div class="row">
             <div class="col-10">
-                <h1>Attraction index</h1>
+                <h1>{{'Attraction index' | trans}}</h1>
             </div>
             <div class=" logo col-2 " dir="rtl">
                 {{ knp_menu_render('main') }}

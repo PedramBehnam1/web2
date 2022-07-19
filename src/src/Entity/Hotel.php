@@ -32,7 +32,7 @@ class Hotel implements TimeInterface , UserInterface
     Assert\Regex(pattern:"/^[a-zA-Z]+$/")]
     private $name;
     
-    #[ORM\Column(type: 'text'), Assert\Regex(pattern:"/^[a-zA-Z|\s]+$/")]
+    #[ORM\Column(type: 'text'), Assert\Regex(pattern:"/^[a-zA-Z0-9|\s\-]+$/")]
     private $address;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true), Assert\Regex(pattern:"/^[\d|\s]+$/")]
@@ -53,6 +53,14 @@ class Hotel implements TimeInterface , UserInterface
 
     #[ORM\OneToMany(mappedBy: 'hotel', targetEntity: Room::class, orphanRemoval: true)]
     private $rooms;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'hotels')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $hotelOwner;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'hotelsEditor')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $editor;
 
     public function __construct()
     {
@@ -159,6 +167,30 @@ class Hotel implements TimeInterface , UserInterface
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getHotelOwner(): ?User
+    {
+        return $this->hotelOwner;
+    }
+
+    public function setHotelOwner(?User $hotelOwner): self
+    {
+        $this->hotelOwner = $hotelOwner;
+
+        return $this;
+    }
+
+    public function getEditor(): ?User
+    {
+        return $this->editor;
+    }
+
+    public function setEditor(?User $editor): self
+    {
+        $this->editor = $editor;
+
+        return $this;
     }
 
 }

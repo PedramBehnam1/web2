@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Hotel;
+use App\Entity\User;
 use App\Form\HotelType;
 use App\Repository\HotelRepository;
 use App\Services\SearchHotel;
@@ -14,10 +15,27 @@ use Symfony\Component\Routing\Annotation\Route;
 use sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface as TokenInterface;
+
 #[Route('/hotel')]
 class HotelController extends AbstractController
 {
-    #[Route('/', name: 'app_hotel_index', methods: ['GET'])]
+    /** @var  TokenStorageInterface */
+    private $tokenStorage;
+
+    /**
+     * @param TokenStorageInterface  $storage
+     */
+    public function __construct(
+        TokenStorageInterface $storage,
+    )
+    {
+        $this->tokenStorage = $storage;
+    }
+   
+
+    #[Route('/{_locale}', name: 'app_hotel_index', methods: ['GET'], defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $hotels = $entityManager
@@ -35,8 +53,18 @@ class HotelController extends AbstractController
         $hotel = new Hotel();
         $form = $this->createForm(HotelType::class, $hotel);
         $form->handleRequest($request);
+        $this->denyAccessUnlessGranted('new', $hotel);
+
+        $token = $this->tokenStorage->getToken();
+        if ($token instanceof TokenInterface) {
+        /** @var User $user */
+        $user = $token->getUser(); // ye test bezan - ok
+        $hotel->setHotelOwner($user);//charei nist bayad editor ham set konam-hasti
+        $hotel->setEditor($user);//migham bebin in consol command ro dorost minevisam
+        }
         // $createdAt = new \DateTimeImmutable('now');
-        // $hotel->setCreateAt($createdAt);
+        // $hotel->setCreateAt($createdAt); inja chikar konam 
+         
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($hotel);
@@ -54,6 +82,8 @@ class HotelController extends AbstractController
     #[Route('/{id}', name: 'app_hotel_show', methods: ['GET'] , requirements: ['id' => '\d+'])]
     public function show(Hotel $hotel): Response
     {
+
+        $this->denyAccessUnlessGranted('view', $hotel);
         return $this->render('hotel/show.html.twig', [
             'hotel' => $hotel,
         ]);
@@ -64,6 +94,7 @@ class HotelController extends AbstractController
     {
         $form = $this->createForm(HotelType::class, $hotel);
         $form->handleRequest($request);
+        $this->denyAccessUnlessGranted('edit', $hotel); 
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -82,6 +113,8 @@ class HotelController extends AbstractController
     #[Security("is_granted('ROLE_USER')")]
     public function delete(Request $request, Hotel $hotel, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('delete', $hotel); 
+        
         if ($this->isCsrfTokenValid('delete'.$hotel->getId(), $request->request->get('_token'))) {
             $entityManager->remove($hotel);
             $entityManager->flush();

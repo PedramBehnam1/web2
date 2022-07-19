@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 #[Route('/comment')]
 class CommentController extends AbstractController
 {
-    #[Route('/', name: 'app_comment_index', methods: ['GET'])]
+    #[Route('/{_locale}', name: 'app_comment_index', methods: ['GET'], defaults:['_locale'=>'en'], requirements: ['_locale' => 'en|fa'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $comments = $entityManager

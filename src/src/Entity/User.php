@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -31,6 +33,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $lastName;
+
+    #[ORM\OneToMany(mappedBy: 'hotelOwner', targetEntity: Hotel::class, orphanRemoval: true)]
+    private $hotels; 
+
+    #[ORM\OneToMany(mappedBy: 'editor', targetEntity: Hotel::class, orphanRemoval: true)]
+    private $hotelsEditor;
+
+    public function __construct()
+    {
+        $this->hotels = new ArrayCollection();
+        $this->hotelsEditor = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -124,5 +138,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastName = $lastName;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Hotel>
+     */
+    public function getHotels(): Collection
+    {
+        return $this->hotels;
+    }
+
+    public function addHotel(Hotel $hotel): self
+    {
+        if (!$this->hotels->contains($hotel)) {
+            $this->hotels[] = $hotel;
+            $hotel->setHotelOwner($this);
+            
+        }
+
+        return $this;
+    }
+
+    public function removeHotel(Hotel $hotel): self
+    {
+        if ($this->hotels->removeElement($hotel)) {
+            // set the owning side to null (unless already changed)
+            if ($hotel->getHotelOwner() === $this) {
+                $hotel->setHotelOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    
+    public function __toString()
+    {
+        return $this->getEmail();
     }
 }
