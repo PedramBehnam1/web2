@@ -55,13 +55,13 @@ protected function supports(string $attribute, $subject):bool
 
   switch ($attribute) {
     case self::VIEW:
-        return $this->canView();//nabayad configi kard - config nemikhad - shayad subject to hotel tashkis nemide
+        return $this->canView();
     case self::EDIT:
-        return $this->canEdit($hotel, $user); // alan vared in mishe 
+        return $this->canEdit($hotel, $user);  
     case self::NEW:
-        return $this->canNew($subject, $user); // ajibe kar nemikone - mesle mane -bear edit esh ham test konam
+        return $this->canNew($subject, $user); 
     case self::Delete:
-        return $this->canDelete($hotel, $user); // hala kamel kon
+        return $this->canDelete($hotel, $user); 
     }
  }
 
@@ -69,7 +69,7 @@ protected function supports(string $attribute, $subject):bool
 /**
   * @return bool
  */
- public function canView(){ // view ro hame mitonna bebiann - pas retur n mikoni true
+ public function canView(){ 
     return true;
  }
 /**
@@ -77,7 +77,7 @@ protected function supports(string $attribute, $subject):bool
   * @param OwnerInterface $subject
   * @return bool
  */
- public function canEdit($hotel, $user){  // be in gir mide
+ public function canEdit($hotel, $user){  
   return ($hotel->getEditor() === $user || $hotel->getHotelOwner() === $user);
  } 
 

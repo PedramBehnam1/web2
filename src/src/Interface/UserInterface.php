@@ -1,6 +1,6 @@
 <?php
 
- namespace App\Interface;//in chesh shod yeho
+ namespace App\Interface;
 
 
 interface UserInterface

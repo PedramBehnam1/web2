@@ -58,9 +58,9 @@ class HotelController extends AbstractController
         $token = $this->tokenStorage->getToken();
         if ($token instanceof TokenInterface) {
         /** @var User $user */
-        $user = $token->getUser(); // ye test bezan - ok
-        $hotel->setHotelOwner($user);//charei nist bayad editor ham set konam-hasti
-        $hotel->setEditor($user);//migham bebin in consol command ro dorost minevisam
+        $user = $token->getUser(); 
+        $hotel->setHotelOwner($user);
+        $hotel->setEditor($user);
         }
         // $createdAt = new \DateTimeImmutable('now');
         // $hotel->setCreateAt($createdAt); inja chikar konam 
@@ -128,7 +128,7 @@ class HotelController extends AbstractController
     public function search(Request $request, SearchHotel $hotelSearch): Response
     {
         $q = $request->query->get('query');// in miad query to url ro migire - yani search moon - http://localhost/index.php/hotel/search?query=Azadi 
-        $hotels = $hotelSearch->search($q);//khob vase search ech chi ezaf konam to file twig am - to safe home ye form besaz bara search - badesh test kon - nabayad to safheh ye hotel dorost konam - harja dost dashti fargh nemikone
+        $hotels = $hotelSearch->search($q);
         
 
         return $this->render('hotel/search.html.twig', [ 

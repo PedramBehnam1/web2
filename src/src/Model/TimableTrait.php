@@ -3,7 +3,7 @@
 
 namespace App\Model;
 
-use Doctrine\ORM\Mapping as ORM; // khob ina ke okeye- are nemidonam chera
+use Doctrine\ORM\Mapping as ORM; 
 
 trait TimableTrait
 {
